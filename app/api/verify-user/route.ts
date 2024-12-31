@@ -18,9 +18,11 @@ export async function POST(req: NextRequest) {
         .insert(User)
         .values({ name, email, imageUrl })
         .returning({
+          id: User.id,
           name: User.name,
           email: User.email,
           imageUrl: User.imageUrl,
+          credits: User.credits,
         });
       return Response.json({ user: newUserRes[0] });
     }
