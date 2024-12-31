@@ -4,6 +4,10 @@ import { useUser } from "@clerk/nextjs";
 import axios from "axios";
 import React, { useEffect } from "react";
 
+type ResType = {
+  user: User;
+};
+
 const Provider = ({ children }: { children: React.ReactNode }) => {
   const { user } = useUser();
   const userStore = useUserStore();
@@ -15,13 +19,12 @@ const Provider = ({ children }: { children: React.ReactNode }) => {
 
   const verufyUser = async () => {
     try {
-      const userRes = await axios.post<User>("/api/verify-user", {
+      const userRes = await axios.post<ResType>("/api/verify-user", {
         name: user?.fullName,
         email: user?.primaryEmailAddress?.emailAddress,
         imageUrl: user?.imageUrl,
       });
-      console.log(userRes.data);
-      userStore.setUser(userRes.data);
+      userStore.setUser(userRes.data.user);
     } catch (error) {
       //TODO
       //make a toast

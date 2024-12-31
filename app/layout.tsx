@@ -19,6 +19,7 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en">
+        <link rel="icon" href="/my-logo.svg" type="image/png" sizes="32x32" />
         <body className={outfit.className}>
           <Provider>{children}</Provider>
         </body>

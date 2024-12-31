@@ -12,7 +12,7 @@ export async function POST(req: NextRequest) {
     const userRes = await db.select().from(User).where(eq(User.email, email));
 
     if (userRes.length) {
-      return NextResponse.json({ user: userRes });
+      return NextResponse.json({ user: userRes[0] });
     } else {
       const newUserRes = await db
         .insert(User)
