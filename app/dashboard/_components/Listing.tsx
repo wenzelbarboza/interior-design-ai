@@ -15,7 +15,7 @@ const Listing = () => {
         <div className="flex justify-between items-center">
           <h2 className="font-bold text-3xl">Hello, {userStore.user?.name}</h2>
           <Link href={"/dashboard/create-new"}>
-            <Button className="text-white">Redesign Room</Button>
+            <Button>Redesign Room</Button>
           </Link>
         </div>
         {userRoomListing.length == 0 ? (

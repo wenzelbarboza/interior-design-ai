@@ -15,7 +15,7 @@ const Header = () => {
           <h2>AI Room Design</h2>
         </div>
 
-        <Button variant={"ghost"} className="text-primary rounded-2xl">
+        <Button variant={"ghost"} className="text-primaryColor rounded-2xl">
           Buy more credits
         </Button>
 

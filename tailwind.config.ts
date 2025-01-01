@@ -58,6 +58,9 @@ export default {
         sm: "calc(var(--radius) - 4px)",
       },
       textColor: {
+        primaryColor: "hsl(var(--primary))",
+      },
+      borderColor: {
         primary: "hsl(var(--primary))",
       },
     },

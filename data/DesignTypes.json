@@ -1,0 +1,26 @@
+[
+  {
+    "type":"Modern",
+    "image":"https://nnbwwoyabieqwquwxlts.supabase.co/storage/v1/object/public/interior-design-ai-assets/modern.png?t=2025-01-01T08%3A41%3A09.815Z"
+  },
+  {
+    "type":"Industrial",
+    "image":"https://nnbwwoyabieqwquwxlts.supabase.co/storage/v1/object/public/interior-design-ai-assets/industrial.png"
+  },
+  {
+    "type":"Bohemian",
+    "image":"https://nnbwwoyabieqwquwxlts.supabase.co/storage/v1/object/public/interior-design-ai-assets/bohemian.png"
+  },
+  {
+    "type":"traditional",
+    "image":"https://nnbwwoyabieqwquwxlts.supabase.co/storage/v1/object/public/interior-design-ai-assets/traditional.png?t=2025-01-01T08%3A41%3A57.127Z"
+  },
+  {
+    "type":"Rustic",
+    "image":"https://nnbwwoyabieqwquwxlts.supabase.co/storage/v1/object/public/interior-design-ai-assets/rustic.png?t=2025-01-01T08%3A42%3A08.445Z"
+  },
+  {
+    "type":"Minimalist",
+    "image":"https://nnbwwoyabieqwquwxlts.supabase.co/storage/v1/object/public/interior-design-ai-assets/minimalist.png"
+  }
+]

@@ -1,7 +1,7 @@
 import React from "react";
 import Listing from "./_components/Listing";
 
-const page = () => {
+const Dashboard = () => {
   return (
     <>
       <Listing />
@@ -9,4 +9,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Dashboard;
