@@ -1,5 +1,5 @@
 "use client";
-import { User, useUserStore } from "@/zod/UserStore";
+import { User, useUserStore } from "@/zustand/UserStore";
 import { useUser } from "@clerk/nextjs";
 import axios from "axios";
 import React, { useEffect } from "react";

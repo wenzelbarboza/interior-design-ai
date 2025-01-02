@@ -5,6 +5,10 @@ import RoomType from "./_components/RoomType";
 import DesignType from "./_components/DesignType";
 import AdditionalPrompts from "./_components/AdditionalPrompts";
 import { Button } from "@/components/ui/button";
+import { formSchema } from "@/models/create-new";
+import { uploadImage } from "./_actions/actions";
+import axios from "axios";
+import { RedesignRoomSchema } from "@/models/redesign-room";
 
 type ValueName = "image" | "room" | "design" | "prompt";
 
@@ -28,11 +32,34 @@ const Create = () => {
     valueName: ValueName
   ) => {
     console.log(value, valueName);
+    console.log("image name: ", formData.image?.name);
     console.log(formData);
     setFormData((prev) => ({
       ...prev,
       [valueName]: value,
     }));
+  };
+
+  const handleSubmit = async () => {
+    try {
+      const { design, image, prompt, room } = formSchema.parse(formData);
+      console.log("zod validated items", design, image, prompt, room);
+
+      const { imageUrl } = await uploadImage(image);
+      console.log("image url from supabase: ", imageUrl);
+      const apiBody = RedesignRoomSchema.parse({
+        design,
+        prompt,
+        room,
+        image: imageUrl,
+      });
+
+      const res = await axios.post("/api/redesign-room", apiBody);
+
+      console.log("new image response frontend: ", res);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -68,7 +95,9 @@ const Create = () => {
             />
 
             {/* submit */}
-            <Button className="w-full mt-5">Submit</Button>
+            <Button className="w-full mt-5" onClick={handleSubmit}>
+              Submit
+            </Button>
             <p className="text-sm text-gray-400 mb-52">
               NOTE: 1 credit point will be consumed to generate design
             </p>

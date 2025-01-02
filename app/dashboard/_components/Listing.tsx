@@ -1,6 +1,6 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { useUserStore } from "@/zod/UserStore";
+import { useUserStore } from "@/zustand/UserStore";
 import React, { useState } from "react";
 import EmptyListing from "./EmptyListing";
 import Link from "next/link";

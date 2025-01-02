@@ -1,6 +1,6 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { useUserStore } from "@/zod/UserStore";
+import { useUserStore } from "@/zustand/UserStore";
 import { UserButton } from "@clerk/nextjs";
 import Image from "next/image";
 import React from "react";

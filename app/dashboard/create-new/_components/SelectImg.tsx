@@ -11,9 +11,10 @@ const SelectImg = ({ selectedImage }: Props) => {
   const [files, setFiles] = useState<File | undefined>();
 
   const handleFiles = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(event.target.files?.[0]);
-    setFiles(event.target.files?.[0]);
-    selectedImage(files);
+    const file = event.target.files?.[0];
+    console.log(file);
+    setFiles(file);
+    selectedImage(file);
   };
 
   return (

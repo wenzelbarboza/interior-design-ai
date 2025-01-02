@@ -10,3 +10,5 @@ export const User = mySchema.table("users", {
   imageUrl: varchar("imageUrl").notNull(),
   credits: integer("credits").default(3),
 });
+
+
