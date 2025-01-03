@@ -9,6 +9,8 @@ import { formSchema } from "@/models/create-new";
 import { uploadImage } from "./_actions/actions";
 import axios from "axios";
 import { RedesignRoomSchema } from "@/models/redesign-room";
+import { useUserStore } from "@/zustand/UserStore";
+import CustomLoading from "./_components/CustomLoading";
 
 type ValueName = "image" | "room" | "design" | "prompt";
 
@@ -20,12 +22,16 @@ type FormData = {
 };
 
 const Create = () => {
+  const userId = useUserStore((store) => store.user?.id);
+
   const [formData, setFormData] = useState<FormData>({
     image: undefined,
     room: "",
     design: "",
     prompt: "",
   });
+
+  const [loading, setLoading] = useState(false);
 
   const onHandleInputChange = (
     value: File | undefined | string,
@@ -42,23 +48,29 @@ const Create = () => {
 
   const handleSubmit = async () => {
     try {
+      setLoading(true);
       const { design, image, prompt, room } = formSchema.parse(formData);
       console.log("zod validated items", design, image, prompt, room);
 
+      //upload image to supabase
       const { imageUrl } = await uploadImage(image);
       console.log("image url from supabase: ", imageUrl);
+
       const apiBody = RedesignRoomSchema.parse({
         design,
         prompt,
         room,
         image: imageUrl,
       });
+      const res = await axios.post<{
+        storageImageUrl: string;
+      }>("/api/redesign-room", apiBody);
 
-      const res = await axios.post("/api/redesign-room", apiBody);
-
-      console.log("new image response frontend: ", res);
+      console.log("new image response frontend: ", res.data.storageImageUrl);
     } catch (error) {
       console.error(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -103,6 +115,7 @@ const Create = () => {
             </p>
           </div>
         </div>
+        <CustomLoading loading={loading} />
       </div>
     </>
   );
