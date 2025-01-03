@@ -9,8 +9,8 @@ import { formSchema } from "@/models/create-new";
 import { uploadImage } from "./_actions/actions";
 import axios from "axios";
 import { RedesignRoomSchema } from "@/models/redesign-room";
-import { useUserStore } from "@/zustand/UserStore";
 import CustomLoading from "./_components/CustomLoading";
+import AiOutputDialog from "../_components/AiOutputDialog";
 
 type ValueName = "image" | "room" | "design" | "prompt";
 
@@ -22,8 +22,6 @@ type FormData = {
 };
 
 const Create = () => {
-  const userId = useUserStore((store) => store.user?.id);
-
   const [formData, setFormData] = useState<FormData>({
     image: undefined,
     room: "",
@@ -32,6 +30,9 @@ const Create = () => {
   });
 
   const [loading, setLoading] = useState(false);
+  const [image, setImage] = useState<string>("");
+  const [aiImage, setAiImage] = useState<string>("");
+  const [openOutputDialog, setOpenOutputDialog] = useState(false);
 
   const onHandleInputChange = (
     value: File | undefined | string,
@@ -54,7 +55,7 @@ const Create = () => {
 
       //upload image to supabase
       const { imageUrl } = await uploadImage(image);
-      console.log("image url from supabase: ", imageUrl);
+      setImage(imageUrl);
 
       const apiBody = RedesignRoomSchema.parse({
         design,
@@ -65,8 +66,8 @@ const Create = () => {
       const res = await axios.post<{
         storageImageUrl: string;
       }>("/api/redesign-room", apiBody);
-
-      console.log("new image response frontend: ", res.data.storageImageUrl);
+      setAiImage(res.data.storageImageUrl);
+      setOpenOutputDialog(true);
     } catch (error) {
       console.error(error);
     } finally {
@@ -116,6 +117,12 @@ const Create = () => {
           </div>
         </div>
         <CustomLoading loading={loading} />
+        <AiOutputDialog
+          aiImage={aiImage}
+          image={image}
+          openDialog={openOutputDialog}
+          setOpenDialog={setOpenOutputDialog}
+        />
       </div>
     </>
   );
